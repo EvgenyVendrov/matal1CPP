@@ -26,36 +26,42 @@ fi
 make > /dev/null 2>&1
 returnedVal=$?
 
-#checking "make" return value - did the function successed
+#checking "make" return value - did the function succeed
 if [ "$returnedVal" -gt 0 ] || [ "$returnedVal" -lt 0 ]; then
 echo "Compilation	Memory leaks	thread race"
 echo "  failed      ->      [CANT CHECK NOTHING]"
 exit 4
 fi 
 
+#checking if the program name is now found in the directory as a file - i.e - another check if the compilation succeed 
+if [ ! -e "$programName" ]; then
+echo "Compilation	Memory leaks	thread race"
+echo " failed-> [no output file name as specified]"
+exit 4 
+fi
+
 #checking the exe with valgrind - for memory leaks
-valgrind -q --leak-check=full --error-exitcode=9 ./$programName $argsForProgram > /dev/null 2>&1
+valgrind -q --leak-check=full --error-exitcode=9 ./$programName ${argsForProgram[@]} > /dev/null 2>&1
 returnedVal=$?
 
-#checking "valgrind" return value - did the function successed
+#checking "valgrind" return value - did the function succeed
 if [ "$returnedVal" -eq 9 ]; then
 valToReturn=2
 fi 
 
  
 #checking the exe with helgrind - for race condition
-#valgrind -q --tool=helgrind --error-exitcode=8 ./$programName $argsForProgram > /dev/null 2>&1
-valgrind -q --tool=helgrind --error-exitcode=8 ./$programName $argsForProgram > /dev/null 2>&1
+valgrind -q --tool=helgrind --error-exitcode=8 ./$programName ${argsForProgram[@]} > /dev/null 2>&1
 returnedVal=$?
 
 
-#checking "helgrind" return value - did the function successed
+#checking "helgrind" return value - did the function succeed
 if [ "$returnedVal" -eq 8 ]; then
 ((valToReturn++))
 fi 
 
+#printing the output as specified 
 echo "Compilation	Memory leaks	thread race"
-
 if [ "$valToReturn" -eq 2 ]; then
 echo "PASSED	         FAILED	           PASSED"
 elif [ "$valToReturn" -eq 3 ]; then
