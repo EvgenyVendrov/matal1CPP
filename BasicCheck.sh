@@ -17,6 +17,7 @@ cd $folderPath > /dev/null 2>&1
 returnedVal=$?
 if [ ! "$returnedVal" -eq 0 ]; then
 echo "WRONGPATH !!!"
+fi
  
 #starting the makeFile 
 make > /dev/null 2>&1
@@ -60,7 +61,6 @@ echo "PASSED	         PASSED	         FAILED"
 else
 echo "PASSED	         PASSED	         PASSED"
 fi
- 		
-
+		
 cd $curDir
 exit $varToReturn
