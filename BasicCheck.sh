@@ -60,4 +60,4 @@ else
 echo "PASSED	         PASSED	         PASSED"
 fi
 
-exit $varToReturn
+exit "$valToReturn"
