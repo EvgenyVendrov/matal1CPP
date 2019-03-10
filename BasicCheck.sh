@@ -3,7 +3,7 @@
 #saving users input:
 folderPath=$1
 programName=$2
-argsForProgram=${@:3}
+argsForProgram="$3"
 
 #saving this var to store the value to be returned by the program
 declare valToReturn=0
@@ -11,11 +11,6 @@ declare valToReturn=0
 declare returnedVal
 
 #directory change to the chosen one by user
-#cd ~ #this is made to make the CD possible from every directory 
-#returnedVal=$?
-#if [ ! "$returnedVal" -eq 0 ]; then
-#echo "WRONGPATH111111 !!!"
-#fi
 cd $folderPath > /dev/null 2>&1
 returnedVal=$?
 if [ ! "$returnedVal" -eq 0 ]; then
@@ -34,7 +29,7 @@ exit 7
 fi 
 
 #checking the exe with valgrind - for memory leaks
-valgrind -q --leak-check=full --error-exitcode=9 ./$programName ${argsForProgram[@]} > /dev/null 2>&1
+valgrind -q --leak-check=full --error-exitcode=9 ./$programName $argsForProgram > /dev/null 2>&1
 returnedVal=$?
 
 #checking "valgrind" return value - did the function succeed
@@ -44,7 +39,7 @@ fi
 
  
 #checking the exe with helgrind - for race condition
-valgrind -q --tool=helgrind --error-exitcode=8 ./$programName ${argsForProgram[@]} > /dev/null 2>&1
+valgrind -q --tool=helgrind --error-exitcode=8 ./$programName $argsForProgram > /dev/null 2>&1
 returnedVal=$?
 
 
