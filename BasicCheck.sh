@@ -14,7 +14,7 @@ returnedVal=0
 cd $folderPath > /dev/null 2>&1
 returnedVal=$?
 if [ ! "$returnedVal" -eq 0 ]; then
-echo "WRONGPATH222222 !!!"
+echo "wrong path asked - exiting with error code -666"
 fi
  
 #starting the makeFile 
