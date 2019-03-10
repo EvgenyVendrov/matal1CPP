@@ -33,13 +33,6 @@ echo "  failed      ->      [CANT CHECK NOTHING]"
 exit 7
 fi 
 
-#checking if the program name is now found in the directory as a file - i.e - another check if the compilation succeed 
-if [ ! -e "$programName" ]; then
-echo "Compilation	Memory leaks	thread race"
-echo " failed-> [no output file name as specified]"
-exit 7
-fi
-
 #checking the exe with valgrind - for memory leaks
 valgrind -q --leak-check=full --error-exitcode=9 ./$programName ${argsForProgram[@]} > /dev/null 2>&1
 returnedVal=$?
