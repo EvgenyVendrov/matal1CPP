@@ -15,13 +15,7 @@ declare returnedVal
 cd ~ #this is made to make the CD possible from every directory 
 cd $folderPath > /dev/null 2>&1
 returnedVal=$?
-
-#checking whether the dir change was successful
-if [ "$returnedVal" -gt 0 ] || [ "$returnedVal" -lt 0 ]; then
-echo "given path isnt good to use"
-exit 7
-fi 
-
+ 
 #starting the makeFile 
 make > /dev/null 2>&1
 returnedVal=$?
