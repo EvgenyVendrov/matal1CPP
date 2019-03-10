@@ -19,7 +19,7 @@ returnedVal=$?
 #checking whether the dir change was successful
 if [ "$returnedVal" -gt 0 ] || [ "$returnedVal" -lt 0 ]; then
 echo "given path isnt good to use"
-exit 7
+exit -5
 fi 
 
 #starting the makeFile 
@@ -30,14 +30,14 @@ returnedVal=$?
 if [ "$returnedVal" -gt 0 ] || [ "$returnedVal" -lt 0 ]; then
 echo "Compilation	Memory leaks	thread race"
 echo "  failed      ->      [CANT CHECK NOTHING]"
-exit 7
+exit 4
 fi 
 
 #checking if the program name is now found in the directory as a file - i.e - another check if the compilation succeed 
 if [ ! -e "$programName" ]; then
 echo "Compilation	Memory leaks	thread race"
 echo " failed-> [no output file name as specified]"
-exit 7
+exit 4 
 fi
 
 #checking the exe with valgrind - for memory leaks
