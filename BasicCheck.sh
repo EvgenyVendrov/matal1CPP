@@ -13,10 +13,14 @@ declare returnedVal
 
 #directory change to the chosen one by user
 cd ~ #this is made to make the CD possible from every directory 
+returnedVal=$?
+if [ ! "$returnedVal" -eq 0 ]; then
+echo "WRONGPATH111111 !!!"
+fi
 cd $folderPath > /dev/null 2>&1
 returnedVal=$?
 if [ ! "$returnedVal" -eq 0 ]; then
-echo "WRONGPATH !!!"
+echo "WRONGPATH222222 !!!"
 fi
  
 #starting the makeFile 
