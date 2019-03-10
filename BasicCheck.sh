@@ -5,10 +5,10 @@ folderPath=$1
 programName=$2
 argsForProgram="$3"
 
-#saving this var to store the value to be returned by the program
-declare valToReturn=0
+#creating this var to store the value to be returned by the program
+valToReturn=0
 #creating a var for returned values - as there will be some
-declare returnedVal
+returnedVal=0
 
 #directory change to the chosen one by user
 cd $folderPath > /dev/null 2>&1
