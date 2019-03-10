@@ -4,7 +4,6 @@
 folderPath=$1
 programName=$2
 argsForProgram=${@:3}
-curDir=`pwd`
 
 #saving this var to store the value to be returned by the program
 declare valToReturn=0
@@ -65,6 +64,5 @@ echo "PASSED	         PASSED	         FAILED"
 else
 echo "PASSED	         PASSED	         PASSED"
 fi
-		
-cd $curDir
+
 exit $varToReturn
