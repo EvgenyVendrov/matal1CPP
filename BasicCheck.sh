@@ -4,7 +4,7 @@
 folderPath=$1
 programName=$2
 argsForProgram=${@:3}
-
+curDir=`pwd`
 
 #saving this var to store the value to be returned by the program
 declare valToReturn=0
@@ -14,14 +14,13 @@ declare returnedVal
 #directory change to the chosen one by user
 cd ~ #this is made to make the CD possible from every directory 
 cd $folderPath > /dev/null 2>&1
-returnedVal=$?
  
 #starting the makeFile 
 make > /dev/null 2>&1
 returnedVal=$?
 
 #checking "make" return value - did the function succeed
-if [ "$returnedVal" -gt 0 ] || [ "$returnedVal" -lt 0 ]; then
+if [ ! "$returnedVal" -eq 0 ]; then
 echo "Compilation	Memory leaks	thread race"
 echo "  failed      ->      [CANT CHECK NOTHING]"
 exit 7
@@ -60,5 +59,5 @@ echo "PASSED	         PASSED	         PASSED"
 fi
  		
 
-
+cd $curDir
 exit $varToReturn
