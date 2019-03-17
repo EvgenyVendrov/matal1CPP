@@ -3,7 +3,8 @@
 #saving users input:
 folderPath=$1
 programName=$2
-argsForProgram="$3"
+shift 2
+argsForProgram=$@
 
 #creating this var to store the value to be returned by the program
 valToReturn=0
@@ -13,7 +14,7 @@ returnedVal=0
 #directory change to the chosen one by user
 cd $folderPath > /dev/null 2>&1
 returnedVal=$?
-if [ ! "$returnedVal" -eq 0 ]; then
+if [ "$returnedVal" -ne 0 ]; then
 echo "wrong path asked - exiting with error code -666"
 exit -666
 fi
@@ -23,7 +24,7 @@ make > /dev/null 2>&1
 returnedVal=$?
 
 #checking "make" return value - did the function succeed
-if [ ! "$returnedVal" -eq 0 ]; then
+if [ "$returnedVal" -ne 0 ]; then
 echo "Compilation	Memory leaks	thread race"
 echo "  failed      ->      [CANT CHECK NOTHING]"
 exit 7
